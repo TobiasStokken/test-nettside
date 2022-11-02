@@ -1,20 +1,39 @@
 <template>
   <div class="randomFact">
-    <div class="dailyRandomButton">
-      <button @click="dailyRandomFact()">Daglig/Random Fakta</button>
+    <div class="buttons">
+      <button class="dailyRandomButton" @click="dailyRandomFact()">
+        Daglig/Random Fakta
+      </button>
     </div>
-    <div class="refreshButton">
-      <button @click="refresh()">Ny fakta</button>
+    <div class="buttons">
+      <button class="refreshButton" @click="refresh()">Ny fakta</button>
     </div>
-    <div v-if="randomFact" class="title">En ubrukelig fakta er:</div>
-    <div v-if="randomFact" class="fact">{{ postsRandom.text }}</div>
-    <div v-if="dailyFact" class="title">Den daglige faktaen er:</div>
-    <div v-if="dailyFact" class="fact">{{ postsDaily.text }}</div>
-    <p>(Hvis du trykker refresh for fort stopper den å funke)</p>
+    <div class="tekst">
+      <div v-if="randomFact" class="title">En ubrukelig fakta er:</div>
+      <div v-if="randomFact" class="fact">
+        {{ postsRandom.text }}
+        <div v-if="!postsRandom.text">Du trykket ny fakta for fort, ro ned å prøv igjen snart :)</div>
+      </div>
+      <div v-if="dailyFact" class="title">Den daglige faktaen er:</div>
+      <div v-if="dailyFact" class="fact">
+        {{ postsDaily.text }}
+        <div v-if="!postsDaily.text">Feil</div>
+      </div>
+    </div>
   </div>
 </template>
 
-<style>
+<style scoped>
+.tekst{
+  text-align: center;
+}
+.randomFact {
+  background: #00223d;
+  color: white;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 p {
   display: flex;
   justify-content: center;
@@ -29,21 +48,34 @@ p {
   font-size: 150%;
   justify-content: center;
 }
-.dailyRandomButton {
+.buttons {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  font-size: 200%;
   align-items: center;
+}
+.dailyRandomButton {
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 15px;
+  border: 2px solid lightblue;
+  font-size: 200%;
   font-weight: 500;
+  transition: 500ms;
+}
+.dailyRandomButton:hover {
+  background-color: lightblue;
 }
 .refreshButton {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 1rem;
+  border: 2px solid lightblue;
   font-size: 150%;
-  align-items: center;
   font-weight: 500;
+  transition: 500ms;
+}
+.refreshButton:hover {
+  background-color: lightblue;
 }
 </style>
 
@@ -53,40 +85,58 @@ export default {
     return {
       randomFact: true,
       dailyFact: false,
-      postsRandom: [],
-      postsDaily: [],
+      postsRandom: { text: "" },
+      postsDaily: {},
     };
   },
 
   methods: {
     refresh() {
-      window.location.reload();
+      this.getDataRandom();
     },
     dailyRandomFact() {
-      if (this.randomFact == true) {
+      if (this.randomFact) {
         this.randomFact = false;
         this.dailyFact = true;
-      } else if (this.dailyFact == true) {
+      } else if (this.dailyFact) {
         this.dailyFact = false;
         this.randomFact = true;
       }
     },
-
-    async getData() {
-      let responseRandom = await fetch(
-        "https://uselessfacts.jsph.pl/random.json?language=en"
-      );
-      this.postsRandom = await responseRandom.json();
-
-      let responseDaily = await fetch(
-        "https://uselessfacts.jsph.pl/today.json?language=en"
-      );
-      this.postsDaily = await responseDaily.json();
+    getDataRandom() {
+      fetch("https://uselessfacts.jsph.pl/random.json?language=en")
+        .then((response) => response.json())
+        .then((data) => {
+          this.postsRandom = data;
+          this.$store.commit("nyFact", data.text);
+          console.log("Success:", data, this.postsRandom);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          this.postsRandom = {};
+        });
+    },
+    getDataDaily() {
+      fetch("https://uselessfacts.jsph.pl/today.json?language=en")
+        .then((response) => response.json())
+        .then((data) => {
+          this.postsDaily = data;
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          this.postsDaily = {};
+        });
     },
   },
 
-  created() {
-    this.getData();
+  mounted() {
+    this.getDataDaily();
+    this.postsRandom = { text: this.$store.getters["getFact"] };
+    if (this.postsRandom.text === "") {
+      this.getDataRandom();
+    }
+    console.log(this.$store.getters["getFact"]);
   },
 };
 </script>
