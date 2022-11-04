@@ -1,15 +1,23 @@
 export const state = () => ({
-  fact: "",
-});
-
-export const getters = {
-  getFact(state:any) {
-    return state.fact;
-  },
-};
-
-export const mutations = {
-  nyFact(state:any,payload:any) {
-    state.fact = payload;
-  },
-};
+    fact: "",
+    reverseMelding: "Test",
+  });
+  
+  export const getters = {
+    getFact(state:any) {
+      return state.fact;
+    },
+    getReverseMelding(state:any) {
+      return state.reverseMelding
+    }
+  };
+  
+  export const mutations = {
+    nyFact(state:any,payload:any) {
+      state.fact = payload;
+    },
+    nyReverseMelding(state:any,payload:any) {
+      state.reverseMelding = payload
+    }
+  };
+  

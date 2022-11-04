@@ -2,7 +2,7 @@
   <div class="test">
     <div class="test3">Hei</div>
     <div>
-      <input v-model="tekst" class="test2" type="text" />
+      <input v-model="tekst" v-on:change="updateReverseMelding()" class="test2" type="text" />
     </div>
     <div class="test4">
       <h1>{{ tekst.split("").reverse().join("") }}</h1>
@@ -16,6 +16,14 @@ export default {
     return {
       tekst: "",
     };
+  },
+  methods: {
+    updateReverseMelding(){
+      this.$store.commit("nyReverseMelding", this.tekst);
+    }
+  },
+  mounted() {
+    this.tekst = this.$store.getters["getReverseMelding"];
   },
 };
 </script>
@@ -48,6 +56,5 @@ export default {
 .test4 {
   display: flex;
   justify-content: center;
-  rotate: 180deg;
 }
 </style>
