@@ -31,7 +31,7 @@
   background: #00223d;
   color: white;
   display: flex;
-  min-height: 100vh;
+  min-height: 89.3vh;
   flex-direction: column;
 }
 p {

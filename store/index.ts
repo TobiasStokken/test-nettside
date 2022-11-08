@@ -1,6 +1,6 @@
 export const state = () => ({
     fact: "",
-    reverseMelding: "Test",
+    reverseMelding: "",
   });
   
   export const getters = {
