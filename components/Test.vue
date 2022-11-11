@@ -40,7 +40,7 @@ export default {
   color: white;
   font-size: 500%;
   display: flex;
-  min-height: 89.3vh;
+  overflow: hidden;
   flex-direction: column;
   justify-content: center;
   align-items: center;
