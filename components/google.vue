@@ -20,7 +20,7 @@ export default {
   methods: {
     google() {
       console.log("https://google.com/" + this.tekst);
-      window.location.replace("https://google.com/search/" + this.tekst);
+      window.location.replace("https://www.google.com/search?q=" + this.tekst);
     },
   },
 };

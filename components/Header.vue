@@ -8,14 +8,10 @@
       <nuxt-link to="/random"><div class="key-cotnent">Random Fakta</div></nuxt-link>
     </div>
 	<div class="key">
-<<<<<<< Updated upstream
-      <nuxt-link to="/placeholder"><div class="key-cotnent">Fortnite LAN med boyså</div></nuxt-link>
-=======
       <nuxt-link to="/google"><div class="key-cotnent">Google</div></nuxt-link>
     </div>
 	<div class="key">
       <nuxt-link to="/placeholder"><div class="key-cotnent">Placeholder</div></nuxt-link>
->>>>>>> Stashed changes
     </div>
   </div>
 </div>
