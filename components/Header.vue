@@ -7,9 +7,6 @@
     <div class="key">
       <nuxt-link to="/random"><div class="key-cotnent">Random Fakta</div></nuxt-link>
     </div>
-    <div class="key">
-      <nuxt-link to="/knapp"><div class="key-cotnent">Fancy knapp</div></nuxt-link>
-    </div>
 	<div class="key">
       <nuxt-link to="/placeholder"><div class="key-cotnent">Placeholder</div></nuxt-link>
     </div>
