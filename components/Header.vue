@@ -8,7 +8,7 @@
       <nuxt-link to="/random"><div class="key-cotnent">Random Fakta</div></nuxt-link>
     </div>
 	<div class="key">
-      <nuxt-link to="/placeholder"><div class="key-cotnent">Placeholder</div></nuxt-link>
+      <nuxt-link to="/placeholder"><div class="key-cotnent">Fortnite LAN med boyså</div></nuxt-link>
     </div>
   </div>
 </div>
